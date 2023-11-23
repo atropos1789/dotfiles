@@ -1,0 +1,22 @@
+#### ~/.config/yt-dlp/config ####
+
+--concurrent-fragments 4
+
+--embed-thumbnail
+--embed-metadata
+--embed-chapters
+
+# select the highest quality mp4 that contains video+audio
+--format mp4
+
+# download and embed subtitles in english "en"
+# if no subtitles from creator, use auto generated subs
+--sub-langs en
+--write-auto-subs
+--embed-subs
+
+# save to ~/Videos/yt-dlp
+--paths ~/Videos/yt-dlp
+
+# only use ASCII characters in the file name
+--restrict-filenames

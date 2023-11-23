@@ -1,0 +1,199 @@
+#
+# i3 config file (v4)
+#
+
+set $mod Mod4
+
+## ---------- ##
+## APPEARENCE ##
+## ---------- ##
+
+font pango:Space Mono 12
+default_border pixel 0
+# hide_edge_borders smart
+gaps inner 10px
+gaps outer 10px
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.background       #ffffff
+
+
+## -------- ##
+## MENU BAR ##
+## -------- ##
+
+bar {
+        status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+        position top
+        workspace_buttons yes
+        colors {
+            background #222222
+        }
+}
+
+
+## ---------- ##
+## MEDIA KEYS ##
+## ---------- ##
+
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -ctrl 'intel_backlight' -perceived -steps 10 -time 50 -6 && pkill -RTMIN+2 i3blocks"
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -ctrl 'intel_backlight' -perceived -steps 10 -time 50 +6 && pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 10%+ && pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 10%- && pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioMicMute exec --no-startup-id "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" 
+
+# bindsym XF86LaunchA exec --no-startup-id
+# bindsym XF86LaunchB exec --no-startup-id
+# bindsym XF86AudioPrev exec --no-startup-id
+# bindsym XF86AudioPlay exec --no-startup-id
+# bindsym XF86AudioNext exec --no-startup-id
+
+
+## --------------------- ##
+## APPLICATION LAUNCHERS ##
+## --------------------- ##
+
+bindsym $mod+Return exec alacritty
+
+bindsym $mod+a exec --no-startup-id "networkmanager_dmenu"
+bindsym $mod+s exec --no-startup-id rofi -modes calc -show calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xsel --primary --clipboard" -calc-command-history > /dev/null
+bindsym $mod+d exec --no-startup-id "rofi -modes drun -show drun"
+bindsym $mod+z exec --no-startup-id alacritty
+bindsym $mod+x exec --no-startup-id "rofi-rbw --action type --selector rofi"
+bindsym $mod+c exec --no-startup-id "clipmenu"
+
+bindsym Print exec --no-startup-id "maim --select --nodrag ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S)'_SC.png'"
+#compare maim to scrot
+
+
+# old stuff
+# exec --no-startup-id greenclip daemon>/dev/null
+#bindsym $mod+c exec --no-startup-id "rofi -modes 'clipboard:greenclip print' -show clipboard"
+#bindsym $mod+Shift+u exec ~/.config/i3/screenshot.sh
+# screenshot.sh: maim --select --nodrag | xclip -selection clipboard -t image/png
+# this didnt work idk why
+
+
+## ----------------- ##
+## WINDOW MANAGEMENT ##
+## ----------------- ##
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal/vertical orientation
+bindsym $mod+n split h
+bindsym $mod+m split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# focus_on_window_activation focus
+
+bindsym $mod+Shift+space floating toggle
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym Left        resize shrink width 10 px
+        bindsym Down        resize grow height 10 px
+        bindsym Up          resize shrink height 10 px
+        bindsym Right       resize grow width 10 px
+
+        # back to normal: Enter or Escape or Mod1+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+## ---------- ##
+## WORKSPACES ##
+## ---------- ##
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+
+## -------------------- ##
+## APPLICATION SPECIFIC ##
+## -------------------- ##
+
+# determine info by typing `xprop` in a terminal and clicking on the desired window
+
+assign [class="discord"] number 1
+assign [class="instagram-nativefier-51e18f"] number 1
+assign [class="thunderbird"] number 1
+
+assign [instance="Navigator"] number 2
+
+
+## ------------ ##
+## SYSTEM ADMIN ##
+## ------------ ##
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"

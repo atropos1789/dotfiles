@@ -1,0 +1,11 @@
+{
+    "*.tex": {
+        "autosave": 1
+    },
+    "autoclose": false,
+    "clipboard": "terminal",
+    "colorscheme": "simple",
+    "saveundo": true,
+    "softwrap": true,
+    "tabstospaces": true
+}

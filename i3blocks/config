@@ -1,0 +1,76 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+#
+# programs used: wireplumber, acpilight, wireless-tools, playerctl
+#
+#
+# Global properties
+separator=true
+separator_block_width=15
+
+# [cmus]
+# 
+#
+#
+#
+
+[username]
+color=#f5af19
+command=echo "$USER"
+interval=once
+
+[mediaplayer]
+command=$SCRIPT_DIR/mediaplayer
+instance=cmus
+interval=5
+signal=10
+
+[audio]
+command=echo -e "\uf028$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 8-12)"
+interval=once
+signal=1
+
+[brightness]
+command=echo -e "\uf185 $(xbacklight -ctrl intel_backlight -get)"
+interval=once
+signal=2
+
+[network]
+command=echo -e "\uf1eb  $(iwgetid --raw)"
+interval=30
+
+[battery]
+command=echo -e "\uf240  $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT1/capacity)%"
+interval=60
+
+[charging]
+color=#edf909
+command=echo -e "\uf0e7 $(cat /sys/class/power_supply/AC/online)"
+interval=20
+
+[rofi-calendar]
+command=$SCRIPT_DIR/rofi-calendar
+interval=1
+BAR_POSITION=top
+WEEK_START=monday
+DATEFTM=+%a %d %b %Y %I:%M %p
+#SHORTFMT=+%d/%m/%Y
+#LABEL= 
+#FONT=Monospace 10
+#LEFTCLICK_PREV_MONTH=true
+#PREV_MONTH_TEXT=« previous month «
+#NEXT_MONTH_TEXT=» next month »
+#ROFI_CONFIG_FILE=/dev/null
+
+[dunst]
+command=$SCRIPT_DIR/dunst
+markup=pango
+interval=once
+format=json
+min_width=15
+#align=center
+#DUNST_MUTE=off

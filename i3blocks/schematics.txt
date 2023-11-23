@@ -1,0 +1,89 @@
+USERNAME
+
+- show username
+- error handling? no
+- color?
+
+MEDIAPLAYER
+
+
+[mediaplayer]
+command=$SCRIPT_DIR/mediaplayer
+instance=cmus
+interval=5
+signal=10
+
+AUDIO
+- show vol
+- if muted, change symbol to the muted symbol?
+
+[audio]
+command=echo -e "\uf028$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 8-12)"
+interval=once
+signal=1
+
+BRIGHTNESS
+
+- symbol could be better
+- color?
+- error handling?
+
+[brightness]
+command=echo -e "\uf185 $(xbacklight -ctrl intel_backlight -get)"
+interval=once
+signal=2
+
+NETWORKING
+
+- get `iwgetid --raw` 
+
+- if network is disconnected, does this return an empty string?
+- need to handle what happens when there is no network
+- change symbol, color too?
+
+[network]
+command=echo -e "\uf1eb  $(iwgetid --raw)"
+interval=30
+
+BATTERY
+
+[battery]
+command=echo -e "\uf240  $(cat /sys/class/power_supply/BAT0/capacity)% $(cat /sys/class/power_supply/BAT1/capacity)%"
+interval=60
+
+CHARGING
+
+- instead of using 0 or 1, use a symbol or use a color to indicate 
+- like make the battery symbol yellow?
+
+[charging]
+color=#edf909
+command=echo -e "\uf0e7 $(cat /sys/class/power_supply/AC/online)"
+interval=20
+
+CALENDAR/DATE
+
+[rofi-calendar]
+command=$SCRIPT_DIR/rofi-calendar
+interval=1
+BAR_POSITION=top
+WEEK_START=monday
+DATEFTM=+%a %d %b %Y %I:%M %p
+#SHORTFMT=+%d/%m/%Y
+#LABEL= 
+#FONT=Monospace 10
+#LEFTCLICK_PREV_MONTH=true
+#PREV_MONTH_TEXT=« previous month «
+#NEXT_MONTH_TEXT=» next month »
+#ROFI_CONFIG_FILE=/dev/null
+
+NOTIFICATIONS
+
+[dunst]
+command=$SCRIPT_DIR/dunst
+markup=pango
+interval=once
+format=json
+min_width=15
+#align=center
+#DUNST_MUTE=off
