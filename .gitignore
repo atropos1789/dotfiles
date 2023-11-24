@@ -1,6 +1,4 @@
-qimgv/savedState.conf
-
-
+# Folders to not track anything from
 discord/*
 chromium/*
 pcloud/*
@@ -11,3 +9,11 @@ micro/buffers/*
 micro/backups/*
 spotify/*
 hyperbeam/*
+rbw/*
+
+# Files to ignore
+qimgv/savedState.conf
+zsh/.zcompdump
+zsh/.zsh_history
+
+
