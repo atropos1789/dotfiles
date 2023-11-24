@@ -10,6 +10,7 @@ micro/backups/*
 spotify/*
 hyperbeam/*
 rbw/*
+git/*
 
 # Files to ignore
 qimgv/savedState.conf
