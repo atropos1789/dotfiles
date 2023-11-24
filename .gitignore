@@ -1,20 +1,57 @@
 # Folders to not track anything from
-discord/*
-chromium/*
-pcloud/*
-GIMP/*
-systemd/*
-cef_user_data/*
-micro/buffers/*
-micro/backups/*
-spotify/*
-hyperbeam/*
-rbw/*
-git/*
+autostart/
+Bitwarden/
+Bitwarden\ CLI/
+# REVISIT calibre/
+calibre/ 
+# REVISIT cat_installer/
+cat_installer/
+cef_user_data/
+chromium/
+discord/
+pcloud/
+GIMP/
+systemd/
+micro/buffers/
+micro/backups/
+spotify/
+hyperbeam/
+rbw/
+git/
+torbrowser/
+cpupower_gui/
+dconf/
+fontforge/
+kde.org/
+libreoffice/
+octave/
+pulse/
 
 # Files to ignore
+cmus/cache
+cmus/command-history
+cmus/lib.pl
+cmus/playlists
+LanguageTool/LibreOffice/cache
+LanguageTool/LibreOffice/LanguageTool.log
 qimgv/savedState.conf
 zsh/.zcompdump
 zsh/.zsh_history
-
-
+zoom.conf
+zoomus.conf
+gtk-3.0/bookmarks
+qalculate/qalc.history
+QtProject.conf
+qBittorrent/categories.json
+qBittorrent/qBittorrent-data.conf
+qBittorrent/rss/
+qBittorrent/watched_folders.json
+smplayer/device_info.ini
+smplayer/favorites.m3u8
+smplayer/file_settings/
+smplayer/hdpi.ini
+smplayer/player_info.ini
+smplayer/playlist.ini
+smplayer/radio.m3u8
+smplayer/styles.ass
+smplayer/tv.m3u8
