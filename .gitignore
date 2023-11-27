@@ -26,6 +26,7 @@ kde.org/
 libreoffice/
 octave/
 pulse/
+qBittorrent/
 
 # Files to ignore
 cmus/cache
@@ -42,10 +43,6 @@ zoomus.conf
 gtk-3.0/bookmarks
 qalculate/qalc.history
 QtProject.conf
-qBittorrent/categories.json
-qBittorrent/qBittorrent-data.conf
-qBittorrent/rss/
-qBittorrent/watched_folders.json
 smplayer/device_info.ini
 smplayer/favorites.m3u8
 smplayer/file_settings/
