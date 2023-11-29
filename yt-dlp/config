@@ -16,7 +16,10 @@
 --embed-subs
 
 # save to ~/Videos/yt-dlp
---paths ~/Videos/yt-dlp
+# --paths ~/Videos/yt-dlp/
+
+# save to ~/Videos/yt-dlp/<creator>/
+--output ~/Videos/yt-dlp/'%(channel)s/%(title)s [%(id)s].%(ext)s'
 
 # only use ASCII characters in the file name
 --restrict-filenames
