@@ -1,72 +1,95 @@
-# interpreter for shell commands
-set shell sh
+## --------------------- ##
+## Configuration Options ##
+## --------------------- ##
 
-# set '-eu' options for shell commands
-# These options are used to have safer shell commands. Option '-e' is used to
-# exit on error and option '-u' is used to give error for unset variables.
-# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
-# $fx variables contain names with '*' or '?' characters. However, this option
-# is used selectively within individual commands as it can be limiting at
-# times.
-set shellopts '-eu'
-
-# set internal field separator (IFS) to "\n" for shell commands
-# This is useful to automatically split file names in $fs and $fx properly
-# since default file separator used in these variables (i.e. 'filesep' option)
-# is newline. You need to consider the values of these options and create your
-# commands accordingly.
-set ifs "\n"
-
-# set to show hidden files
+    # anchorfind       bool      (default true)
+    # autoquit         bool      (default false)
+    # borderfmt        string    (default "\033[0m")
+    # cleaner          string    (default '')
+    # cursoractivefmt  string    (default "\033[7m")
+    # cursorparentfmt  string    (default "\033[7m")
+    # cursorpreviewfmt string    (default "\033[4m")
+set cursorpreviewfmt "\033[7m"
+    # dircache         bool      (default true)
+    # dircounts        bool      (default false)
+    # dirfirst         bool      (default true)
+set dirfirst false
+    # dironly          bool      (default false)
+    # dirpreviews      bool      (default false)
+    # drawbox          bool      (default false)
+set drawbox true
+    # dupfilefmt       string    (default '%f.~%n~')
+    # errorfmt         string    (default "\033[7;31;47m")
+    # filesep          string    (default "\n")
+    # findlen          int       (default 1)
+set findlen 2
+    # globsearch       bool      (default false)
+    # hidden           bool      (default false)
 set hidden true
-
-# searching can wrap around the file list
-set wrapscroll true
-
-# leave some space at the top and the bottom of the screen
+    # hiddenfiles      []string  (default '.*')
+    # history          bool      (default true)
+    # icons            bool      (default false)
+# set icons true
+    # ifs              string    (default '')
+set ifs "\n"
+    # ignorecase       bool      (default true)
+    # ignoredia        bool      (default true)
+    # incfilter        bool      (default false)
+    # incsearch        bool      (default false)
+    # info             []string  (default '')
+    # infotimefmtnew   string    (default 'Jan _2 15:04')
+    # infotimefmtold   string    (default 'Jan _2  2006')
+    # mouse            bool      (default false)
+    # number           bool      (default false)
+set number true
+    # numberfmt        string    (default "\033[33m")
+    # period           int       (default 0)
+    # preserve         []string  (default "mode")
+    # preview          bool      (default true)
+    # previewer        string    (default '')
+set previewer '/home/kira/.config/lf/preview.sh'
+    # promptfmt        string    (default "\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f\033[0m")
+    # ratios           []int     (default '1:2:3')
+    # relativenumber   bool      (default false)
+    # reverse          bool      (default false)
+    # ruler            []string  (default 'acc:progress:selection:filter:ind')
+    # rulerfmt         string    (default "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f \033[0m  |%i/%t")
+    # scrolloff        int       (default 0)
 set scrolloff 10
+    # selmode          string    (default 'all')
+    # shell            string    (default 'sh' for Unix and 'cmd' for Windows)
+set shell sh
+    # shellflag        string    (default '-c' for Unix and '/c' for Windows)
+    # shellopts        []string  (default '')
+set shellopts '-eu'
+    # sixel            bool      (default false)
+    # smartcase        bool      (default true)
+    # smartdia         bool      (default false)
+    # sortby           string    (default 'natural')
+    # statfmt          string    (default "\033[36m%p\033[0m| %c| %u| %g| %S| %t| -> %l")
+    # tabstop          int       (default 8)
+    # tagfmt           string    (default "\033[31m")
+    # tempmarks        string    (default '')
+    # timefmt          string    (default 'Mon Jan _2 15:04:05 2006')
+    # truncatechar     string    (default '~')
+    # truncatepct      int       (default 100)
+    # waitmsg          string    (default 'Press any key to continue')
+    # wrapscan         bool      (default true)
+    # wrapscroll       bool      (default false)
+set wrapscroll true
+    # user_{option}    string    (default none)
 
-# Use the `dim` attribute instead of underline for the cursor in the preview pane
-set cursorpreviewfmt "\033[7;2m"
+## --------------- ##
+## Custom Commands ##
+## --------------- ##
 
-# use enter for shell commands
-map <enter> shell
+# commands that do not open new windows need to be run as lf -remote "send $id <command> \$f";;
+cmd open &/home/kira/.config/lf/open.sh $f
 
-# show the result of execution of previous commands
-map ` !true
-
-# execute current file (must be executable)
-map x $$f
-map X !$f
-
-# dedicated keys for file opener actions
-map o &mimeopen $f
-map O $mimeopen --ask $f
-
-# define a custom 'open' command
-# This command is called when current file is not a directory. You may want to
-# use either file extensions and/or mime types here. Below uses an editor for
-# text files and a file opener for the rest.
-cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-    esac
-}}
-
-# mkdir command. See wiki if you want it to select created dir
-map a :push %mkdir<space>
-
-# define a custom 'rename' command without prompt for overwrite
-# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
-# map r push :rename<space>
-
-# make sure trash folder exists
-# %mkdir -p ~/.trash
 
 # move current file or selected files to trash folder
 # (also see 'man mv' for backup/overwrite options)
-cmd trash %set -f; mv $fx ~/.trash
+cmd trash %set -f; trash-put $fx
 
 # define a custom 'delete' command
 # cmd delete ${{
@@ -76,10 +99,6 @@ cmd trash %set -f; mv $fx ~/.trash
 #     read ans
 #     [ "$ans" = "y" ] && rm -rf $fx
 # }}
-
-# use '<delete>' key for either 'trash' or 'delete' command
-# map <delete> trash
-# map <delete> delete
 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
@@ -112,3 +131,51 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+
+## --------------- ##
+## Mapping Options ##
+## --------------- ##
+
+# mkdir command. See wiki if you want it to select created dir
+map a :push %mkdir<space>
+
+# use enter for shell commands
+map <enter> shell
+
+# show the result of execution of previous commands
+map ` !true
+
+# requires custom command trash
+map <delete> trash
+
+map i ${{/home/kira/.config/lf/preview.sh $f | bat --paging='always' --style 'plain,changes,grid,numbers,snip' --theme='base16'}}
+
+
+## ----- ##
+## Notes ##
+## ----- ##
+
+# interpreter for shell commands
+# set shell sh
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+# set shellopts '-eu'
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+# set ifs "\n"
+
+
+# define a custom 'rename' command without prompt for overwrite
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map r push :rename<space>
