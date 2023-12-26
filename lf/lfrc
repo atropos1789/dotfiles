@@ -22,14 +22,14 @@ set drawbox true
     # errorfmt         string    (default "\033[7;31;47m")
     # filesep          string    (default "\n")
     # findlen          int       (default 1)
-set findlen 2
+set findlen 0
     # globsearch       bool      (default false)
+set globsearch true
     # hidden           bool      (default false)
 set hidden true
     # hiddenfiles      []string  (default '.*')
     # history          bool      (default true)
     # icons            bool      (default false)
-# set icons true
     # ifs              string    (default '')
 set ifs "\n"
     # ignorecase       bool      (default true)
@@ -37,6 +37,7 @@ set ifs "\n"
     # incfilter        bool      (default false)
     # incsearch        bool      (default false)
     # info             []string  (default '')
+set info size
     # infotimefmtnew   string    (default 'Jan _2 15:04')
     # infotimefmtold   string    (default 'Jan _2  2006')
     # mouse            bool      (default false)
@@ -66,6 +67,7 @@ set shellopts '-eu'
     # smartcase        bool      (default true)
     # smartdia         bool      (default false)
     # sortby           string    (default 'natural')
+set sortby 'name'
     # statfmt          string    (default "\033[36m%p\033[0m| %c| %u| %g| %S| %t| -> %l")
     # tabstop          int       (default 8)
     # tagfmt           string    (default "\033[31m")
@@ -91,26 +93,25 @@ cmd open &/home/kira/.config/lf/open.sh $f
 # (also see 'man mv' for backup/overwrite options)
 cmd trash %set -f; trash-put $fx
 
-# define a custom 'delete' command
-# cmd delete ${{
-#     set -f
-#     printf "$fx\n"
-#     printf "delete?[y/n]"
-#     read ans
-#     [ "$ans" = "y" ] && rm -rf $fx
-# }}
-
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
-cmd extract ${{
-    set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
+cmd extract &{{
+    case "$f" in 
+        *.a|*.ace|*.alz|*.arc|*.arj|*.bz|*.bz2|*.cab|*.cpio|*.deb|*.gz|*.jar|*.lha|*.lz|*.lzh|*.lzma|*.lzo|*.rpm|*.rz|*.t7z|*.tar|*.tbz|*.tbz2|*.tgz|*.tlz|*.txz|*.tZ|*.tzo|*.war|*.xpi|*.xz|*.Z|*.zip)
+            set -f
+            mkdir -p ${f%%.*}
+            cd ${f%%.*}
+            case $f in
+                *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+                *.tar.gz|*.tgz) tar xzvf $f;;
+                *.tar.xz|*.txz) tar xJvf $f;;
+                *.zip) unzip $f;;
+                *.rar) unrar x $f;;
+                *.7z) 7z x $f;;
+            esac
+            cd ..
+            ;;
+        *) exit 0;;
     esac
 }}
 
@@ -132,6 +133,28 @@ cmd zip ${{
     rm -rf $1
 }}
 
+cmd newtext $$EDITOR
+
+# write command to compile .tex file via latexmk -pdflatex='pdflatex -interaction=nonstopmode' -pvc -pdf [FILENAME]
+
+cmd compile_latex &{{
+    if [ -f ~/.local/share/lf/latexmk_pid.txt ]; then
+        lf -remote "send $id echo latexmk already in progress"
+    else
+        lf -remote "send $id echo latexmk starting"
+        latexmk -pdflatex='pdflatex -interaction=nonstopmode' -pvc -pdf $f &
+        echo $! > ~/.local/share/lf/latexmk_pid.txt
+    fi
+}}
+
+cmd stop_compile_latex &{{
+    if [ -f ~/.local/share/lf/latexmk_pid.txt ]; then
+        kill -s TERM $(cat ~/.local/share/lf/latexmk_pid.txt)
+        rm ~/.local/share/lf/latexmk_pid.txt
+    else
+        lf -remote "send $id echo latexmk not in progress"
+    fi
+}}
 
 ## --------------- ##
 ## Mapping Options ##
@@ -150,6 +173,10 @@ map ` !true
 map <delete> trash
 
 map i ${{/home/kira/.config/lf/preview.sh $f | bat --paging='always' --style 'plain,changes,grid,numbers,snip' --theme='base16'}}
+
+map x :extract $f
+
+map m newtext
 
 
 ## ----- ##

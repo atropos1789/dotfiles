@@ -1,11 +1,10 @@
 {
-    "*.tex": {
-        "autosave": 1
-    },
     "autoclose": false,
     "clipboard": "terminal",
     "colorscheme": "simple",
     "saveundo": true,
     "softwrap": true,
+    "statusformatl": " ($(line),$(col)) $(filename) [ $(modified)]",
+    "syntax": false,
     "tabstospaces": true
 }

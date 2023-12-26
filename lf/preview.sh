@@ -14,19 +14,24 @@ case "$1" in
     *.cbr)
         atool --list --format=rar -- "$1";;
     *.flac|*.mp3|*.ogg|*.acc)
-        exiftool "$1";;
-    *.mp4|*.mkv|*.mov|*.avi)
-        exiftool "$1";;
+        mediainfo "$1";;
+    *.mp4|*.mkv|*.mov|*.MOV|*.avi)
+        mediainfo "$1";;
+    *.pdf)
+        pdfinfo "$1";;
     *.pdf|*.epub|*.djvu|*.djv)
         exiftool "$1";;
     *.jpeg|*.jpg|*.JPG|*.png|*.PNG|*.webp|*.tiff|*.gif|*.heic|*.HEIC)
         exiftool "$1";;
+    # *.md)
+    #     env PAGER='less -R' glow "$1";;
     *) 
         case $(file --mime-type -Lb "$1") in
             text/*) 
                 bat --theme='base16' --color='always' --style 'plain' --terminal-width "$(($2 - 4))" --wrap 'character' "$1";;
             *) 
-                echo -e "----- File Type Classification ----- \n $(file --dereference --brief "$1")"| bat --theme='base16' --decorations='always' --style 'plain' --terminal-width "$(($2 - 4))" --wrap 'character';;
+                echo -e "----- File Type Classification ----- \n$(file --dereference --brief "$1")"| bat --theme='base16' --decorations='always' --style 'plain' --terminal-width "$(($2 - 4))" --wrap 'character';;
+                # exiftool "$1";;
         esac;;
         
 esac

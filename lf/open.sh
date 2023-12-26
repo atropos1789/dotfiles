@@ -1,15 +1,17 @@
 #!/bin/sh
 
 case "$f" in
-    *.flac|*.mp3|*.ogg)
-        mpv -- "$fx";;
-        #lf -remote "send $id \$$(mpv --no-audio-display $f)";;
-    *.mp4|*.mkv|*.mov)
+    *.flac|*.mp3|*.ogg|*.m4a)
+        #mpv -- "$fx";;
+        lf -remote "send $id \$mpv --no-audio-display \$fx";;
+    *.mp4|*.mkv|*.mov|*.MOV)
         smplayer "$f";;
     *.pdf|*.djvu|*.djv|*.epub|*.cbz|*.cbr)
         zathura -- "$f";;
     *.jpeg|*.jpg|*.JPG|*.png|*.PNG|*.webp|*.tiff|*.gif|*.heic|*.HEIC)
-        feh --draw-exif --draw-filename --draw-tinted --scale-down -- "$f";;
+        feh --draw-exif --draw-filename --draw-tinted --scale-down --start-at "$f";;
+    *.pptx|*.od[dfgpst]|*.docx|*.sxc|*.xlsx|*.xlt|*.xlw|*.gnm|*.gnumeric)
+        libreoffice --quickstart "$f";;
     *)
         case $(file --mime-type -Lb "$f") in
             text/*)

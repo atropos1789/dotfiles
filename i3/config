@@ -64,7 +64,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+a exec --no-startup-id "networkmanager_dmenu"
 bindsym $mod+s exec --no-startup-id rofi -modes calc -show calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xsel --primary --clipboard" -calc-command-history > /dev/null
 bindsym $mod+d exec --no-startup-id "rofi -modes drun -show drun"
-bindsym $mod+z exec --no-startup-id alacritty
+bindsym $mod+z exec --no-startup-id "rofimoji"
 bindsym $mod+x exec --no-startup-id "rofi-rbw --action type --selector rofi"
 bindsym $mod+c exec --no-startup-id "clipmenu"
 

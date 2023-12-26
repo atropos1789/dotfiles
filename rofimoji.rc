@@ -1,0 +1,3 @@
+action = copy
+files = [ greek_and_coptic, latin-1_supplement, emoticons ]
+prompt = rofimoji

@@ -17,6 +17,8 @@ PROMPT='%D{%I:%M} %n %~ ] '
 ## zsh options ##
 ## ----------- ##
 
+export PATH=/home/kira/context/tex/texmf-linux-64/bin:$PATH
+
 export HISTFILE="$ZDOTDIR/.zsh_history"
 export SAVEHIST=100000000
 export HISTSIZE=100000000
