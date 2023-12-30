@@ -1,0 +1,73 @@
+import = ["/home/kira/.config/alacritty/theme-tomorrow-night.toml"]
+live_config_reload = true
+
+[cursor]
+blink_interval = 300
+blink_timeout = 5
+thickness = 0.15
+unfocused_hollow = false
+
+[cursor.style]
+blinking = "Always"
+shape = "Underline"
+
+[font]
+builtin_box_drawing = true
+size = 11
+
+[font.bold]
+family = "Space Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "Space Mono"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "Space Mono"
+style = "Italic"
+
+[font.normal]
+family = "Space Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[window]
+decorations = "full"
+decorations_theme_variant = "None"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1.0
+startup_mode = "Windowed"
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 10
+y = 10
+
+[window.position]
+x = 0
+y = 0
