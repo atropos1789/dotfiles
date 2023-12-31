@@ -1,6 +1,5 @@
 {
     "autoclose": false,
-    "clipboard": "terminal",
     "colorscheme": "simple",
     "saveundo": true,
     "softwrap": true,
