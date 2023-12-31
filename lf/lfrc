@@ -52,6 +52,7 @@ set previewer '/home/kira/.config/lf/preview.sh'
     # promptfmt        string    (default "\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f\033[0m")
     # ratios           []int     (default '1:2:3')
     # relativenumber   bool      (default false)
+set relativenumber true
     # reverse          bool      (default false)
     # ruler            []string  (default 'acc:progress:selection:filter:ind')
     # rulerfmt         string    (default "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f \033[0m  |%i/%t")
